@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Picker Example</title>
+    <style>
+        #preview {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="open-file-picker">Select Media</button>
+    <input type="file" id="file-input" style="display: none;" accept="image/*,video/*" />
+    <img id="preview" src="" alt="Image preview" />
+
+    <script src="script.js">
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('open-file-picker');
+            const fileInput = document.getElementById('file-input');
+            const previewImage = document.getElementById('preview');
+        
+            button.addEventListener('click', () => {
+                fileInput.click();
+            });
+        
+            fileInput.addEventListener('change', (event) => {
+                const files = event.target.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+        
+                    reader.onload = (e) => {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>
